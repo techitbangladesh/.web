@@ -1,0 +1,48 @@
+import React from "react";
+import styled from "styled-components";
+import { socialLinks } from "./SocialLinksSection";
+
+const FooterBar = styled.footer`
+  padding: 2.2em 1.5em 2em 1.5em;
+  width: 100%;
+  background: #161617;
+  color: #ececec;
+  text-align: center;
+`;
+
+const Copy = styled.div`
+  font-size: 0.96em;
+  opacity: 0.65;
+  letter-spacing: 0.1em;
+`;
+
+const IconRow = styled.div`
+  margin: 1.1em 0 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 1.4em;
+`;
+
+const SocialIcon = styled.a`
+  color: #ececec;
+  opacity: 0.64;
+  font-size: 1.31em;
+  transition: opacity 0.13s, transform 0.17s;
+  &:hover, &:focus {
+    opacity: 1;
+    transform: scale(1.16);
+  }
+`;
+
+export const Footer = () => (
+  <FooterBar>
+    <Copy>© 2026 TECHIT BANGLADESH – All Rights Reserved</Copy>
+    <IconRow>
+      {socialLinks.map(({name, href, Icon})=>(
+        <SocialIcon key={name} href={href} aria-label={name} target="_blank" rel="noopener noreferrer">
+          <Icon size={20}/>
+        </SocialIcon>
+      ))}
+    </IconRow>
+  </FooterBar>
+);

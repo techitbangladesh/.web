@@ -1,0 +1,197 @@
+import React from "react";
+import styled, { keyframes } from "styled-components";
+import {
+  FaYoutube, FaFacebookF, FaXTwitter, FaTelegramPlane, FaWhatsapp, FaEnvelope
+} from "react-icons/fa6";
+import { SiMahfil, SiUpscrolled, SiHikmah } from "./icons/SocialCustomIcons";
+
+type Social = {
+  name: string;
+  href: string;
+  Icon: React.ComponentType<{size?:number}>;
+  accent?: boolean;
+};
+
+export const socialLinks: Social[] = [
+  {
+    name: "YouTube",
+    href: "https://youtube.com/@nabasocial24bd?si=FZm2ymvXIGdFydUH",
+    Icon: FaYoutube,
+    accent: true
+  },
+  {
+    name: "Mahfil",
+    href: "https://mahfil.net/channel/Rwavfx6Lio43CEz",
+    Icon: SiMahfil,
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/siyamns24",
+    Icon: FaFacebookF,
+    accent: true
+  },
+  {
+    name: "Hikmah",
+    href: "https://hikmah.net/@siyamns24",
+    Icon: SiHikmah,
+  },
+  {
+    name: "X",
+    href: "https://x.com/siyamns242026",
+    Icon: FaXTwitter,
+    accent: true
+  },
+  {
+    name: "Upscrolled",
+    href: "https://share.upscrolled.com/en/user/5af53970-701b-4da6-974d-9ce725774a63/",
+    Icon: SiUpscrolled,
+  },
+  {
+    name: "Telegram",
+    href: "https://t.me/siyamns24",
+    Icon: FaTelegramPlane,
+  },
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/qr/HSLBXGETZVSBC1",
+    Icon: FaWhatsapp,
+  },
+  {
+    name: "Email",
+    href: "mailto:info.techitbangladesh@gmail.com",
+    Icon: FaEnvelope,
+  },
+];
+
+const Section = styled.section`
+  padding: 3rem 0 4rem 0;
+  background: rgba(255,255,255,0.9);
+  position: relative;
+`;
+
+const SectionTitle = styled.h2`
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-align: center;
+  color: #232323;
+  margin: 0 0 2.4rem 0;
+  text-transform: uppercase;
+`;
+
+const CardGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2.3rem;
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  @media (max-width: 900px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 580px) {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+  }
+`;
+
+const cardGlow = keyframes`
+  from { box-shadow: 0 4px 32px 0 rgba(242,39,56, 0.00); }
+  to   { box-shadow: 0 6px 32px 0 rgba(242,39,56, 0.12); }
+`;
+
+const Card = styled.a<{accent?:boolean}>`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.25rem 1rem 1.2rem 1rem;
+  background: rgba(255,255,255,0.37);
+  border-radius: 1.77rem;
+  box-shadow: 0 3px 16px 0 rgba(35,36,44,0.05);
+  border: 1.5px solid rgba(20,20,23,0.07);
+  text-decoration: none;
+  color: #1a1a1a;
+  transition: transform 0.19s cubic-bezier(.6,.01,.24,.99), 
+              box-shadow 0.22s cubic-bezier(.6,.01,.24,.99),
+              border 0.17s;
+  position: relative;
+  cursor: pointer;
+  will-change: transform, box-shadow;
+  box-shadow: 0 3px 22px 0 rgba(237, 49, 75, 0.06);
+  &:hover, &:focus {
+    transform: scale(1.048) translateY(-8px);
+    box-shadow: 0 6px 32px 0 rgba(242,39,56, 0.12);
+    border: 1.8px solid #e63149cc;
+    outline: none;
+    animation: ${cardGlow} 0.36s;
+  }
+
+  & > .icon-bg {
+    background: ${({accent}) => accent 
+      ? "linear-gradient(120deg, #eb2e42 20%, #fc5163 90%)"
+      : "linear-gradient(120deg, #ececec 20%, #d2d2d2 90%)"};
+    box-shadow: ${({accent}) => accent
+      ? "0 0 0 0 #f21d2bd0, 0 2px 20px 4px #e83249aa"
+      : "0 2px 8px 0 #d9d9d9bb"};
+  }
+`;
+
+const IconBG = styled.span`
+  width: 58px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  margin-bottom: 1.18rem;
+  font-size: 2.6rem;
+  background: linear-gradient(120deg, #ececec 20%, #d2d2d2 90%);
+  transition: background 0.18s;
+`;
+
+const PlatformName = styled.div`
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  margin-bottom: 0.5rem;
+  color: #192126;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+const VisitButton = styled.span`
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.38em 1.4em;
+  font-size: 0.92em;
+  font-weight: 500;
+  border-radius: 0.6em;
+  background: linear-gradient(90deg,#ed2539 8%,#fb3150 70%);
+  color: #fff;
+  letter-spacing: 0.13em;
+  box-shadow: 0 1px 3px 0 #ed3757be;
+  transition: background 0.18s;
+  opacity: 0.87;
+`;
+
+export const SocialLinksSection = () => (
+  <Section id="socials">
+    <SectionTitle>OUR SOCIAL LINKS</SectionTitle>
+    <CardGrid>
+      {socialLinks.map(({name, href, Icon, accent}) => (
+        <Card
+          key={name}
+          href={href}
+          accent={accent}
+          aria-label={name}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <IconBG className="icon-bg"><Icon size={33}/></IconBG>
+          <PlatformName>{name}</PlatformName>
+          <VisitButton>Visit</VisitButton>
+        </Card>
+      ))}
+    </CardGrid>
+  </Section>
+);

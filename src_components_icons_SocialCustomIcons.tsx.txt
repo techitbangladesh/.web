@@ -1,0 +1,28 @@
+// Custom icons for platforms not in react-icons: Mahfil, Upscrolled, Hikmah
+import React from "react";
+
+// Sample geometric icon for Mahfil (replace with branding SVG if available)
+export const SiMahfil: React.FC<{size?:number}> = ({size=30}) => (
+  <svg width={size} height={size} viewBox="0 0 36 36">
+    <circle cx="18" cy="18" r="15" fill="#2D5A95" />
+    <rect x="11" y="11" width="14" height="14" rx="4" fill="#fff"/>
+    <rect x="14.5" y="14.5" width="7" height="7" rx="3.5" fill="#2D5A95"/>
+  </svg>
+);
+
+// Sample curved icon for Upscrolled (replace with branding SVG if available)
+export const SiUpscrolled: React.FC<{size?:number}> = ({size=30}) => (
+  <svg width={size} height={size} viewBox="0 0 36 36">
+    <rect x="7" y="7" width="22" height="22" rx="6" fill="#0ec8da" />
+    <path d="M13 22c3-8 8-4 10 0" stroke="#fff" strokeWidth="2.8" fill="none" strokeLinecap="round"/>
+  </svg>
+);
+
+// Sample letter "H" logo for Hikmah (replace with branding SVG if available)
+export const SiHikmah: React.FC<{size?:number}> = ({size=30}) => (
+  <svg width={size} height={size} viewBox="0 0 36 36">
+    <rect x="9" y="7" width="6" height="22" rx="2" fill="#463790"/>
+    <rect x="21" y="7" width="6" height="22" rx="2" fill="#463790"/>
+    <rect x="9" y="15" width="18" height="6" rx="2" fill="#fff"/>
+  </svg>
+);

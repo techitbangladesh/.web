@@ -1,0 +1,140 @@
+import React from "react";
+import styled, { keyframes } from "styled-components";
+
+const fadeIn = keyframes`
+  from { opacity: 0; transform: translateY(40px);}
+  to { opacity: 1; transform: translateY(0);}
+`;
+
+const waveAnim = keyframes`
+  0% { background-position: 0 0, 0 0; }
+  100% { background-position: 200% 0, 200% 0; }
+`;
+
+const HeroWrapper = styled.section`
+  width: 100%;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  isolate: isolate;
+  background: linear-gradient(135deg, #fff 40%, #df1919 120%);
+  overflow: hidden;
+`;
+
+const WaveBG = styled.div`
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 60% 40%, rgba(223,25,25,0.14), transparent 60%),
+    linear-gradient(120deg, #fff 50%, #fb3150 110%);
+  animation: ${waveAnim} 24s linear infinite;
+  opacity: 0.7;
+`;
+
+const Particles = styled.canvas`
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+`;
+
+const Container = styled.div`
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 700px;
+  padding: 6rem 1.5rem 4rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+`;
+
+const MainHeading = styled.h1`
+  font-family: 'Orbitron', 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  font-size: clamp(2.7rem, 6vw, 4rem);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: #111;
+  background: linear-gradient(98deg, #191919 64%, #ec263e 110%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0;
+  line-height: 1.05;
+  text-transform: uppercase;
+  animation: ${fadeIn} 1.1s cubic-bezier(.6, .0, .3, 1.01);
+`;
+
+const Tagline = styled.p`
+  font-family: 'Inter', 'Roboto', 'Segoe UI', Arial, sans-serif;
+  font-size: clamp(1.1rem, 3vw, 1.3rem);
+  font-weight: 300;
+  color: #444;
+  letter-spacing: 0.24em;
+  margin: 0 0 0.25em 0;
+  text-transform: uppercase;
+  animation: ${fadeIn} 1.7s cubic-bezier(.62, .13, .42, .99);
+`;
+
+function useParticles(canvasRef: React.RefObject<HTMLCanvasElement>) {
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    let animationFrame: number;
+    const w = canvas.width = window.innerWidth;
+    const h = canvas.height = 400;
+    const ctx = canvas.getContext("2d")!;
+    const particles = Array.from({ length: 48 }).map(() => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: 1.4 + Math.random() * 2.6,
+      dx: -0.35 + Math.random() * 0.7,
+      dy: -0.35 + Math.random() * 0.7,
+      opacity: 0.21 + Math.random() * 0.19,
+    }));
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(237,61,61,${p.opacity.toFixed(2)})`;
+        ctx.shadowColor = "#fb3150";
+        ctx.shadowBlur = 3 * p.r;
+        ctx.fill();
+        p.x += p.dx; p.y += p.dy;
+        if (p.x < -10) p.x = w + 5;
+        if (p.x > w + 10) p.x = -5;
+        if (p.y < -10) p.y = h + 5;
+        if (p.y > h + 10) p.y = -5;
+      }
+      animationFrame = requestAnimationFrame(draw);
+    }
+
+    draw();
+    return () => cancelAnimationFrame(animationFrame);
+  }, [canvasRef]);
+}
+
+export const HeroSection = () => {
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  useParticles(canvasRef);
+
+  return (
+    <HeroWrapper>
+      <WaveBG aria-hidden="true" />
+      <Particles ref={canvasRef} width={window.innerWidth} height={400} aria-hidden="true" />
+      <Container>
+        <MainHeading>TECHIT BANGLADESH</MainHeading>
+        <Tagline>YOUR DIGITAL PARTNER</Tagline>
+      </Container>
+    </HeroWrapper>
+  );
+};
